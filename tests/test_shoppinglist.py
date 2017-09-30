@@ -81,3 +81,19 @@ class TestShoppingList(unittest.TestCase):
         self.assertTrue(self.shoppinglist.add_item("tad812", "green pepper", "2000", "6"))
         self.assertEqual(len(self.shoppinglist.items), num_items + 3)
         self.assertFalse(self.shoppinglist.edit_item("tad812", "carrots", "4000", "15"))
+
+    def test_get_item_fails_when_item_id_is_unknown(self):
+        self.assertIsNone(self.shoppinglist.get_item("abc431"))
+        self.assertEqual(len(self.shoppinglist.items), 0)
+
+    def test_get_item_is_successful_for_a_known_id(self):
+        num_items = len(self.shoppinglist.items)
+        self.assertTrue(self.shoppinglist.add_item("abc457", "cabbages", "5,000/=", "4"))
+        self.assertEqual(len(self.shoppinglist.items), num_items + 1)
+        self.assertTrue(self.shoppinglist.add_item("cdc671", "carrots", "3,00/=", "5"))
+        self.assertEqual(len(self.shoppinglist.items), num_items + 2)
+        item = self.shoppinglist.get_item("cdc671")
+        self.assertIsNotNone(item)
+        self.assertEqual(item.name, "Carrots")
+        self.assertEqual(item.price, "3,00/=")
+        self.assertEqual(item.quantity, "5")
