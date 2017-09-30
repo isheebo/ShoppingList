@@ -10,3 +10,6 @@ script: nosetests  -v --rednose --with-coverage --cover-package=shoppinglist
 
 after_success:
   - coveralls
+
+notifications:
+  - email: false
