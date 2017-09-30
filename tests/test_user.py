@@ -70,3 +70,21 @@ class TestUser(unittest.TestCase):
         __list = self.user.shoppinglists[self.user.ids_names["far712"]]
         self.assertEqual(__list.name, "Computers")
         self.assertEqual(__list.notify_date, "04-05-2019")
+
+    def test_get_list_fails_for_unknown_list_id(self):
+        self.assertIsNone(self.user.get_shoppinglist("gh231a"))
+
+    def test_get_list_is_successful_for_known_id(self):
+        num_lists = len(self.user.shoppinglists)
+        self.assertTrue(self.user.create_shoppinglist("gh231a", "groceries", "5/12/2017"))
+        self.assertEqual(len(self.user.shoppinglists), num_lists + 1)
+        self.assertTrue(self.user.create_shoppinglist("far712", "furniture", "12-12-2018"))
+        self.assertEqual(len(self.user.shoppinglists), num_lists + 2)
+        __list = self.user.get_shoppinglist("far712")
+        self.assertIsNotNone(__list)
+        self.assertEqual(__list.name, "Furniture")
+        self.assertEqual(__list.notify_date, "12-12-2018")
+        __list = self.user.get_shoppinglist("gh231a")
+        self.assertIsNotNone(__list)
+        self.assertEqual(__list.name, "Groceries")
+        self.assertEqual(__list.notify_date, "5/12/2017")
