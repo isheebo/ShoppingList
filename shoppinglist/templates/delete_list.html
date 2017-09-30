@@ -1,0 +1,53 @@
+{% extends "base.html" %} {% block title %} Delete List {% endblock %} {% block content %}
+
+<body>
+    <nav class="navbar navbar-inverse fixed-top bg-faded navbar-toggleable-sm ">
+        <div class="container">
+            <a href="{{ url_for('shopping_list') }}" class="navbar-brand m-o align-content-end mr-auto">
+                Shopping Lister
+            </a>
+            <div class="navbar-nav ">
+                <a class="nav-item nav-link" href="#">{{ user.email }}</a>
+                <a class="nav-item nav-link" href="{{ url_for('logout') }}"> Log Out </a>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="container">
+        <div class="row">
+            {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
+            <div class="alert alert-success alert-dismissable offset-2">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                <p> {{ message }}</p>
+            </div>
+            {% endfor %} {% endif %} {% endwith %} {% if error %}
+            <div class="d-flex justify-content-center alert alert-danger alert-dismissable offset-3 col-6">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                <p class="error">{{ error }}</p>
+            </div>
+            {% endif %}
+
+
+            <form class="col" action="{{ url_for('delete_list', list_id=shoppinglist.list_id) }}" method="post">
+                <div class="container new_list_background card col-6">
+                    <h2 class="text-capitalize card-title mt-1"> Delete </h2>
+                    <div class="row">
+                        <div class="col">
+                            <div class="btn-group mb-5">
+                                <div>
+                                    <p>Are you sure you want to delete this list?</p>
+                                    <button class="btn btn-danger  active">Delete</button>
+                                    <a href="{{ url_for('shopping_list') }}" class="btn btn-secondary ">Cancel</a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %} {% block title %}404 - Page Not Found {% endblock %} {% block content %}
+
+<body>
+
+
+    <nav class="navbar navbar-inverse fixed-top bg-faded navbar-toggleable-sm ">
+        <div class="container">
+            <a href="{{ url_for('shopping_list') }}" class="navbar-brand m-o align-content-end mr-auto">
+                Shopping Lister
+            </a>
+            <div class="navbar-nav ">
+                <a class="nav-item nav-link" href="#">{{ user.email }}</a>
+                <a class="nav-item nav-link" href="{{ url_for('logout') }}">Log Out</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="text-center">
+                    <p class="display-4">404</p>
+                    <h3>Sorry, page not found.</h3>
+                    <p>
+                        Mehn!! Ever heard of the movie WrongTurn, you are now in one!! (kidding...)
+                        <a href="{{ url_for('home') }}">let's get you back Home</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock %}

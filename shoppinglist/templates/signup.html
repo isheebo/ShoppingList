@@ -1,0 +1,89 @@
+{% extends "base.html" %} {% block title %}Sign Up{% endblock %} {% block content %}
+
+<body>
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <h1 class="navbar-brand m-o align-content-end mr-auto">ShoppingLister</h1>
+            </div>
+            <div class="collapse navbar-collapse">
+                <form class="navbar-form navbar-right" method="post">
+                    <div class="form-group">
+                        <input type="email" class="form-control" name="email" id="email" placeholder="email" />
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" name="loginpassword" placeholder="password" />
+                    </div>
+                    <input type="submit" name="submit" class="btn btn-default" value="Log In" />
+                </form>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class=" container media-body form-background col-6">
+                {% if error %}
+                <div class=" alert alert-danger alert-dismissable">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                    <p class="error">{{ error }}</p>
+                </div>
+                {% endif %}
+
+
+                <form action="{{ url_for('signup') }}" method="post">
+                    <h2 class="text-capitalize card-title">Sign Up</h2>
+                    <div class="row">
+                        <div class="col">
+                            <!-- name -->
+                            <div class="form-group">
+                                <label class="control-label align-content-around" for="name"> Full Name</label>
+                                <div>
+                                    <input class="form-control" id="name" name="name" placeholder="Enter Full name" required>
+                                </div>
+                            </div>
+
+                            <!-- Email-->
+                            <div class="form-group">
+                                <label class="control-label align-content-around" for="email">
+                                    Email
+                                </label>
+                                <div>
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter a valid Email Address" required>
+                                </div>
+                            </div>
+
+                            <!-- Password -->
+                            <div class="form-group">
+                                <label class="control-label align-content-around" for="password">Password</label>
+                                <div>
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                                </div>
+                            </div>
+
+                            <!-- Confirm Password -->
+                            <div class="form-group">
+                                <label class="control-label align-content-around" for="confirm-password">
+                                    Confirm Password
+                                </label>
+                                <div>
+                                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm Password"
+                                        required>
+                                </div>
+                            </div>
+
+                            <!-- Sign Up -->
+                            <div class="form-group text-center">
+                                <input class="btn btn-primary col-xs-12" type="submit" name="signup" value="Sign up" />
+                                <p class="align-content-center">Already have an account?
+                                    <a class="card-link" href="{{ url_for('login') }}"> Log In </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock %}

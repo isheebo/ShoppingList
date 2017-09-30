@@ -1,0 +1,72 @@
+{% extends "base.html" %} {% block title %}Edit List{% endblock %} {% block content %}
+
+<body>
+    <nav class="navbar navbar-inverse fixed-top bg-faded navbar-toggleable-sm ">
+        <div class="container">
+            <a href="{{ url_for('shopping_list') }}" class="navbar-brand m-o align-content-end mr-auto">
+                Shopping Lister
+            </a>
+            <div class="navbar-nav ">
+                <a class="nav-item nav-link" href="#">{{ user.email }}</a>
+                <a class="nav-item nav-link" href="{{ url_for('logout') }}"> Log Out </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <!--flash message-->
+            {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
+            <div class="alert alert-success alert-dismissable offset-2">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a> {{ message }}
+            </div>
+            {% endfor %} {% endif %} {% endwith %}
+
+            <!--error -->
+            {% if error %}
+            <div class="d-flex justify-content-center alert alert-danger alert-dismissable offset-3 col-6">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                <p class="error">{{ error }}</p>
+            </div>
+            {% endif %}
+
+            <div class="container new_list_background card col-6">
+                <form action="{{ url_for('edit_list', list_id=shoppinglist.list_id) }}" method="post">
+                    <h2 class="text-capitalize card-title mt-1">Edit shopping list</h2>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <div class="col">
+                                    <label class="control-label col-sm-2" for="name">Name:</label>
+                                </div>
+                                <div class="col">
+                                    <input class="form-control" id="name" name="name" value="{{ shoppinglist.name }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col">
+                                    <label class="control-label col-sm-2" for="notify_date">Remind me on:</label>
+                                </div>
+                                <div class="col">
+                                    <label>
+                                        <input type="date" name="notify_date" value="{{ shoppinglist.notify_date }}"
+                                               required>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div>
+                                    <button class="btn btn-success">Save</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+{% endblock %}
