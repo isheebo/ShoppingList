@@ -21,3 +21,13 @@ class ShoppingList:
         self.id_names[item_id] = new_item.name
         self.date_modified = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         return True
+
+    def remove_item(self, item_id):
+        if item_id not in self.id_names:
+            print(f"item with id '{item_id}' cannot be found")
+            return False
+        name = self.id_names[item_id]
+        del self.id_names[item_id]
+        del self.items[name]
+        self.date_modified = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        return True
