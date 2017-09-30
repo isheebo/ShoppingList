@@ -28,3 +28,19 @@ class TestShoppingList(unittest.TestCase):
         self.assertEqual(len(self.shoppinglist.items), num_items + 1)
         self.assertFalse(self.shoppinglist.add_item("cdc671", "cabbages", "3,00/=", "5"))
         self.assertEqual(len(self.shoppinglist.items), num_items + 1)
+
+    def test_remove_item_fails_if_item_id_is_not_in_shoppinglist(self):
+        num_items = len(self.shoppinglist.items)
+        self.assertTrue(self.shoppinglist.add_item("abc457", "cabbages", "5,000/=", "4"))
+        self.assertEqual(len(self.shoppinglist.items), num_items + 1)
+        self.assertFalse(self.shoppinglist.remove_item("34e"))
+        self.assertEqual(len(self.shoppinglist.items), num_items + 1)
+
+    def test_remove_item_is_successful(self):
+        num_items = len(self.shoppinglist.items)
+        self.assertTrue(self.shoppinglist.add_item("abc457", "cabbages", "5,000/=", "4"))
+        self.assertEqual(len(self.shoppinglist.items), num_items + 1)
+        self.assertTrue(self.shoppinglist.add_item("cdc671", "carrots", "3,00/=", "5"))
+        self.assertEqual(len(self.shoppinglist.items), num_items + 2)
+        self.assertTrue(self.shoppinglist.remove_item("abc457"))
+        self.assertEqual(len(self.shoppinglist.items), num_items + 1)
