@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/isheebo/ShoppingList.svg?branch=master)](https://travis-ci.org/isheebo/ShoppingList)
 [![Coverage Status](https://coveralls.io/repos/github/isheebo/ShoppingList/badge.svg?branch=master)](https://coveralls.io/github/isheebo/ShoppingList?branch=master)
+
 ShoppingList is a shopping list Application built in Python with the Flask Framework. It is designed to be simple to use and to keep track of all items a user may want to buy.
 ### App Features
 * Users can login and make an account
