@@ -30,3 +30,17 @@ class User:
         del self.shoppinglists[self.ids_names[list_id]]
         del self.ids_names[list_id]
         return True
+
+    def edit_shoppinglist(self, list_id, name, notify_date):
+        if list_id not in self.ids_names:
+            print(f"List with ID '{list_id}' not found")
+            return False  # we can't edit things that don't exist
+
+        list_name = name.title()
+        if list_name in self.shoppinglists:
+            return False  # duplicate names not allowed
+
+        __list = self.shoppinglists[self.ids_names[list_id]]
+        __list.name = list_name
+        __list.notify_date = notify_date
+        return True
