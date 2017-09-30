@@ -14,3 +14,12 @@ class Dashboard:
             self.registry[user.email] = user
             has_been_registered = True
         return has_been_registered
+
+    def login(self, email, password):
+        if email not in self.registry:  # if user is not yet registered, return False
+            print("login failed due to an unknown email address!")
+            return False
+
+        if pwd_context.verify(password, self.registry[email].password):
+            self.is_logged_in = True
+        return self.is_logged_in
