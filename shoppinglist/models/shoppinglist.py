@@ -31,3 +31,20 @@ class ShoppingList:
         del self.items[name]
         self.date_modified = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         return True
+
+    def edit_item(self, item_id, name, price, quantity):
+        if item_id not in self.id_names:
+            print(f"item with id '{item_id}' cannot be found")
+            return False
+
+        item_name = name.title()
+        if item_name in self.items:
+            print(f"Item with name '{name}' is already on the shopping list")
+            return False
+
+        item = self.items[self.id_names[item_id]]
+        item.name = item_name
+        item.price = price
+        item.quantity = quantity
+        self.date_modified = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        return True
