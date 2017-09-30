@@ -44,3 +44,9 @@ class User:
         __list.name = list_name
         __list.notify_date = notify_date
         return True
+
+    def get_shoppinglist(self, list_id):
+        if list_id not in self.ids_names:
+            print(f"List with ID '{list_id}' not found")
+            return None
+        return self.shoppinglists[self.ids_names[list_id]]
