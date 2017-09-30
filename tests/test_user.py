@@ -26,3 +26,18 @@ class TestUser(unittest.TestCase):
         self.assertEqual(len(self.user.shoppinglists), num_lists + 1)
         self.assertTrue(self.user.create_shoppinglist("far712", "furniture", "12-12-2018"))
         self.assertEqual(len(self.user.shoppinglists), num_lists + 2)
+
+    def test_delete_fails_if_list_id_is_unknown(self):
+        num_lists = len(self.user.shoppinglists)
+        self.assertFalse(self.user.delete_shoppinglist("gh231a"))
+        self.assertEqual(len(self.user.shoppinglists), num_lists)
+
+    def test_delete_list_is_successful(self):
+        num_lists = len(self.user.shoppinglists)
+        self.assertTrue(self.user.create_shoppinglist("gh231a", "groceries", "5/12/2017"))
+        self.assertEqual(len(self.user.shoppinglists), num_lists + 1)
+        self.assertTrue(self.user.create_shoppinglist("far712", "furniture", "12-12-2018"))
+        self.assertEqual(len(self.user.shoppinglists), num_lists + 2)
+        self.assertTrue(self.user.delete_shoppinglist("gh231a"))
+        self.assertEqual(len(self.user.shoppinglists), num_lists + 1)
+        self.assertEqual(len(self.user.ids_names), num_lists + 1)
