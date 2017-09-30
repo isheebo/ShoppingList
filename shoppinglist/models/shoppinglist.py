@@ -48,3 +48,9 @@ class ShoppingList:
         item.quantity = quantity
         self.date_modified = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         return True
+
+    def get_item(self, item_id):
+        if item_id not in self.id_names:
+            print(f"item with id '{item_id}' cannot be found")
+            return None
+        return self.items[self.id_names[item_id]]
