@@ -57,3 +57,15 @@ def home():
         return redirect(url_for("login"))
     user = dashboard.registry[session["email"]]
     return render_template("home.html", user=user, shoppinglists=user.shoppinglists)
+
+
+@app.route("/shoppinglist/items/<list_id>", methods=["GET", "POST"])
+def items(list_id):
+    if not session.get("logged in"):
+        return redirect(url_for("login"))
+
+    user = dashboard.registry[session["email"]]
+    shoppinglist = user.get_shoppinglist(list_id)
+    if shoppinglist:
+        return render_template("items.html", user=user, shoppinglist=shoppinglist)
+    return redirect(url_for("home"))  # don't leave room for an error
