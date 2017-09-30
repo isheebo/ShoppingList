@@ -28,3 +28,22 @@ def signup():
             return render_template("signup.html", error=f"user with {email} already exists, log in please")
         return render_template("signup.html", error="all fields required! check to see if all boxes have been filled")
     return render_template("signup.html", error=None)
+
+
+@app.route("/login", methods=['GET', 'POST'])
+def login():
+    if session.get("logged in"):
+        return redirect(url_for("home"))
+
+    if request.method == "POST":
+        email = request.form.get("email")
+        password = request.form.get("password")
+
+        if email and password:
+            if dashboard.login(email, password):
+                flash("Login successful")
+                session["email"] = email
+                return redirect(url_for("home"))
+            return render_template("login.html", error="password incorrect! please try again")
+        return render_template("login.html", error="missing fields: email and password")
+    return render_template("login.html", error=None)
