@@ -47,3 +47,13 @@ def login():
             return render_template("login.html", error="password incorrect! please try again")
         return render_template("login.html", error="missing fields: email and password")
     return render_template("login.html", error=None)
+
+
+@app.route("/home", methods=['GET', 'POST'])
+def home():
+    """display shopping lists that the user has...
+    Displays them in a table with links to edit and delete the links"""
+    if not session.get("logged in"):
+        return redirect(url_for("login"))
+    user = dashboard.registry[session["email"]]
+    return render_template("home.html", user=user, shoppinglists=user.shoppinglists)
