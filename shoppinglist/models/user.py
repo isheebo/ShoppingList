@@ -20,3 +20,13 @@ class User:
         self.shoppinglists[new_list.name] = new_list
         self.ids_names[new_list.id] = new_list.name
         return True
+
+    def delete_shoppinglist(self, list_id):
+        if list_id not in self.ids_names:
+            print(f"List with ID '{list_id}' not found")
+            return False
+
+        print(f"'{self.ids_names[list_id]}' has been successfully deleted!")
+        del self.shoppinglists[self.ids_names[list_id]]
+        del self.ids_names[list_id]
+        return True
