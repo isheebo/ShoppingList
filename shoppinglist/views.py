@@ -69,3 +69,23 @@ def items(list_id):
     if shoppinglist:
         return render_template("items.html", user=user, shoppinglist=shoppinglist)
     return redirect(url_for("home"))  # don't leave room for an error
+
+
+@app.route("/shoppinglist/items/<list_id>")
+def add_item(list_id):
+    if not session.get("logged in"):
+        return redirect(url_for("login"))
+
+    user = dashboard.registry[session["email"]]
+    shoppinglist = user.get_shoppinglist(list_id)
+    if shoppinglist:
+        name = request.form.get("name")
+        price = request.form.get("price")
+        quantity = request.form.get("quantity")
+        if name and price and quantity:
+            item_id = secrets.token_urlsafe(10)
+            if shoppinglist.add_item(item_id, name, price, quantity):
+                return redirect(url_for("items", list_id=shoppinglist.id))
+            flash(f"item with name '{name}' already exists!")
+        return redirect(url_for("items", list_id=shoppinglist.id))
+    return redirect(url_for("home", user=user, shoppinglists=user.shoppinglists))
