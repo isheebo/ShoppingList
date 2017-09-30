@@ -14,3 +14,17 @@ class TestShoppingList(unittest.TestCase):
         self.assertEqual(self.shoppinglist.notify_date, "17-10-2017")
         self.assertEqual(self.shoppinglist.date_created, datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
         self.assertEqual(self.shoppinglist.date_modified, datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+
+    def test_add_item_to_shoppinglist_is_successful(self):
+        num_items = len(self.shoppinglist.items)
+        self.assertTrue(self.shoppinglist.add_item("abc457", "cabbages", "5,000/=", "4"))
+        self.assertEqual(len(self.shoppinglist.items), num_items + 1)
+        self.assertTrue(self.shoppinglist.add_item("cdc671", "carrots", "3,00/=", "5"))
+        self.assertEqual(len(self.shoppinglist.items), num_items + 2)
+
+    def test_add_item_to_shoppinglist_fails_if_item_name_already_exists(self):
+        num_items = len(self.shoppinglist.items)
+        self.assertTrue(self.shoppinglist.add_item("abc457", "cabbages", "5,000/=", "4"))
+        self.assertEqual(len(self.shoppinglist.items), num_items + 1)
+        self.assertFalse(self.shoppinglist.add_item("cdc671", "cabbages", "3,00/=", "5"))
+        self.assertEqual(len(self.shoppinglist.items), num_items + 1)
