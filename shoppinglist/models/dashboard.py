@@ -23,3 +23,11 @@ class Dashboard:
         if pwd_context.verify(password, self.registry[email].password):
             self.is_logged_in = True
         return self.is_logged_in
+
+    def logout(self):
+        is_logged_out = False
+        if self.is_logged_in:  # for a user to logout, they must be logged in
+            # notice we don't delete self.registry[email], so that once
+            # someone wants to login again, they do it without needing to first signup again
+            is_logged_out = True
+        return is_logged_out
