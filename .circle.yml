@@ -1,0 +1,11 @@
+machine:
+  python:
+    version: 3.6.2
+
+dependencies:
+  pre:
+    - pip install -r requirements.txt
+
+test:
+  override:
+    - nosetests -v --rednose --with-coverage --cover-package=app
