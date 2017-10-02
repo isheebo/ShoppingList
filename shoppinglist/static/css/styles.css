@@ -1,34 +1,24 @@
 .form-background {
-
     background: #ffffff;
-
 }
 
 .media {
-
     background: transparent;
-
 }
 
 .navbar {
     background: mediumseagreen;
 }
 
-
-
 .new_list_background {
-
     background: rgba(168, 143, 255, .2);
     margin-top: 100px;
 }
 
 .items{
-
     margin-top: 100px;
 }
-body{
-    background-color: #ffffff;
-}
+
 
 
 
