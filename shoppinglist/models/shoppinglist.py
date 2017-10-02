@@ -38,9 +38,10 @@ class ShoppingList:
             return False
 
         item_name = name.title()
-        if item_name in self.items:
-            print(f"Item with name '{name}' is already on the shopping list")
-            return False
+        for saved_id, saved_name in self.id_names.items():
+            if saved_name == item_name and item_id != saved_id:
+                print(f"Item with name '{name}' is already on the shopping list")
+                return False
 
         item = self.items[self.id_names[item_id]]
         item.name = item_name

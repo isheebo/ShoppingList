@@ -37,8 +37,9 @@ class User:
             return False  # we can't edit things that don't exist
 
         list_name = name.title()
-        if list_name in self.shoppinglists:
-            return False  # duplicate names not allowed
+        for saved_id, saved_name in self.ids_names.items():
+            if saved_name == list_name and list_id != saved_id:
+                return False  # duplicate names not allowed
 
         __list = self.shoppinglists[self.ids_names[list_id]]
         __list.name = list_name
