@@ -31,7 +31,7 @@
             {% endif %}
 
             <div class="container new_list_background card col-6">
-                <form action="{{ url_for('edit_list', list_id=shoppinglist.list_id) }}" method="post">
+                <form action="{{ url_for('edit_list', list_id=shoppinglist.id) }}" method="post">
                     <h2 class="text-capitalize card-title mt-1">Edit shopping list</h2>
                     <div class="row">
                         <div class="col">

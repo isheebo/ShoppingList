@@ -17,7 +17,7 @@
     <div class="container">
         <div class="row">
 
-            <form class="col" action="{{ url_for('delete_item', list_id = shoppinglist.list_id, item_id = item.item_id) }}" method="post">
+            <form class="col" action="{{ url_for('delete_item', list_id = shoppinglist.id, item_id = item.id) }}" method="post">
                 <div class="container new_list_background card col-6">
                     <h2 class="text-capitalize card-title mt-1"> Delete </h2>
                     <div class="row">
@@ -26,7 +26,7 @@
                                 <div>
                                     <p>Are you sure you want to delete this item?</p>
                                     <button class="btn btn-danger"> Delete</button>
-                                    <a href="{{ url_for('items', list_id=shoppinglist.list_id) }}" class="btn btn-secondary ">Cancel</a>
+                                    <a href="{{ url_for('items', list_id=shoppinglist.id) }}" class="btn btn-secondary ">Cancel</a>
                                 </div>
                             </div>
                         </div>
