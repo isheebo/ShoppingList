@@ -21,7 +21,7 @@ def signup():
                 return render_template("signup.html", error="password mismatch: try again")
 
             if dashboard.signup(name, email, password):
-                flash("You have been registered!")
+                flash(f"user with email {email} has been registered!")
                 return redirect(url_for('login'))
             return render_template("signup.html", error=f"user with {email} already exists, log in please")
         return render_template("signup.html", error="all fields required! check to see if all boxes have been filled")
@@ -76,10 +76,12 @@ def add_list():
     # since it is a modal class, we need not to check
     # whether name and notify_date have been provided
 
-    if user.create_shoppinglist(list_id, list_name, notify_date):
-        flash("A new shopping list has been successfully added")
-    else:
-        flash("A shopping list with that name already exists")
+    if list_name and notify_date:
+        if user.create_shoppinglist(list_id, list_name, notify_date):
+            flash(f"List with name '{list_name.title()}' has been created")
+        else:
+            flash(f"A shopping list with its name as '{list_name}' already exists")
+    flash("unable to create list: please enter a valid list name")
     return redirect(url_for('home'))
 
 
@@ -100,11 +102,11 @@ def edit_list(list_id):
         notify_date = request.form.get("notify_date")
         if shoppinglist.name != name.title() or shoppinglist.notify_date != notify_date:
             if user.edit_shoppinglist(shoppinglist.id, name, notify_date):
-                flash("list edited successfully")
+                flash("List edited successfully")
             else:
-                flash("a shopping list with that name already exists")
+                flash(f"a shopping list with that name ('{name.title()}') already exists")
             return redirect(url_for('home'))
-        flash('no changes were made!')
+        flash('no changes have been made to the list!')
         return redirect(url_for('home'))
     return render_template('edit_list.html', user=user, shoppinglist=shoppinglist)
 
@@ -178,7 +180,7 @@ def edit_item(list_id, item_id):
     item = shoppinglist.get_item(item_id)
 
     if shoppinglist and not item:
-        flash("item does not exist on this shopping list")
+        # flash("item does not exist on this shopping list")
         return redirect(url_for('items', list_id=shoppinglist.id))
 
     if request.method == 'POST':
@@ -212,7 +214,7 @@ def delete_item(list_id, item_id):
     item = shoppinglist.get_item(item_id)
 
     if shoppinglist and not item:
-        flash("item does not exist on this shopping list")
+        # flash("item does not exist on this shopping list")
         return redirect(url_for('items', list_id=shoppinglist.id))
 
     if request.method == 'POST':
