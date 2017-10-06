@@ -73,13 +73,15 @@ def add_list():
     notify_date = request.form.get("notify_date")
     list_id = secrets.token_urlsafe(10)
 
+    # since it is a modal class, we need not to check
+    # whether name and notify_date have been provided
+
     if list_name and notify_date:
         if user.create_shoppinglist(list_id, list_name, notify_date):
             flash(f"List with name '{list_name.title()}' has been created")
         else:
             flash(f"A shopping list with its name as '{list_name}' already exists")
-    else:
-        flash("unable to create list: please enter a valid list name")
+    flash("unable to create list: please enter a valid list name")
     return redirect(url_for('home'))
 
 
