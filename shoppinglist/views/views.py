@@ -40,7 +40,7 @@ def login():
         if email and password:
             if len(dashboard.registry) == 0:
                 return render_template('login.html',
-                                       error='unknown email: you need to first signup before you can log in')
+                                       error='unknown email address: you need to first signup before you can log in')
 
             if dashboard.login(email, password):
                 flash(f"Login successful for {email}")
