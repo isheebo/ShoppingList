@@ -22,7 +22,8 @@ class Dashboard:
 
         if pwd_context.verify(password, self.registry[email].password):
             self.is_logged_in = True
-        return self.is_logged_in
+            return True
+        return False
 
     def logout(self):
         is_logged_out = False
