@@ -9,8 +9,10 @@
                 Shopping Lister
             </a>
             <div class="navbar-nav ">
-                <a class="nav-item nav-link" href="#">{{ user.email }}</a>
-                <a class="nav-item nav-link" href="{{ url_for('logout') }}">Log Out</a>
+                {% if user %}
+                    <a class="nav-item nav-link" href="#">{{ user.email }}</a>
+                    <a class="nav-item nav-link" href="{{ url_for('logout') }}">Log Out</a>
+                {% endif %}
             </div>
         </div>
     </nav>
