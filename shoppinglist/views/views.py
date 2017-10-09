@@ -25,7 +25,8 @@ def signup():
                 return redirect(url_for('login'))
             return render_template("signup.html", error=f"user with {email} already exists, log in please")
         return render_template("signup.html", error="all fields required! check to see if all boxes have been filled")
-    return render_template("signup.html", error=None)  # when request.method == 'GET'
+    # when request.method == 'GET'
+    return render_template("signup.html", error=None)
 
 
 @app.route("/login", methods=['GET', 'POST'])
@@ -49,7 +50,8 @@ def login():
                 return redirect(url_for("home"))
             return render_template("login.html", error="password incorrect! please try again")
         return render_template("login.html", error="missing fields: both email and password are required")
-    return render_template("login.html", error=None)  # when request.method == 'GET'
+    # when request.method == 'GET'
+    return render_template("login.html", error=None)
 
 
 @app.route("/view/lists", methods=['GET', 'POST'])
@@ -77,7 +79,8 @@ def add_list():
         if user.create_shoppinglist(list_id, list_name, notify_date):
             flash(f"List with name '{list_name.title()}' has been created")
         else:
-            flash(f"A shopping list with its name as '{list_name}' already exists")
+            flash(
+                f"A shopping list with its name as '{list_name}' already exists")
     else:
         flash("unable to create list: please enter a valid list name")
     return redirect(url_for('home'))
@@ -102,7 +105,8 @@ def edit_list(list_id):
             if user.edit_shoppinglist(shoppinglist.id, name, notify_date):
                 flash("List edited successfully")
             else:
-                flash(f"a shopping list with that name ('{name.title()}') already exists")
+                flash(
+                    f"a shopping list with that name ('{name.title()}') already exists")
             return redirect(url_for('home'))
         flash('no changes have been made to the list!')
         return redirect(url_for('home'))
@@ -138,7 +142,8 @@ def items(list_id):
 
     # regardless of the request method
     if not shoppinglist:
-        return redirect(url_for("home"))  # don't leave room for an error: redirect to the shoppinglists view
+        # don't leave room for an error: redirect to the shoppinglists view
+        return redirect(url_for("home"))
     return render_template("items.html", user=user, shoppinglist=shoppinglist)
 
 
@@ -190,7 +195,8 @@ def edit_item(list_id, item_id):
             if shoppinglist.edit_item(item_id, name, price, quantity):
                 flash("Item edit successful")
             else:
-                flash(f"failed to edit Item: an item with name '{name}' already exists")
+                flash(
+                    f"failed to edit Item: an item with name '{name}' already exists")
             return redirect(url_for('items', list_id=shoppinglist.id))
         flash("no changes were made to the item")
         return redirect(url_for('items', list_id=shoppinglist.id))
@@ -229,3 +235,12 @@ def logout():
         session["logged in"] = False
         dashboard.logout()
     return redirect(url_for('login'))
+
+
+@app.errorhandler(404)
+def not_found(_):
+    if session.get("logged in"):
+        user = dashboard.registry[session["email"]]
+        if user:
+            return render_template('404.html', user=user)
+    return render_template('404.html', user=None)
